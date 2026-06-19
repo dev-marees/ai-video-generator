@@ -1,4 +1,4 @@
-# Universal File Converter
+# AI video Generator
 
 A local POC that converts a Markdown (`.md`) document into a narrated MP4 video.
 Upload a markdown file, preview the rendered document and auto-generated slides,
