@@ -15,10 +15,18 @@ export default defineConfig({
     // Proxy API calls to the backend during development so the frontend
     // can use relative paths and avoid CORS issues.
     proxy: {
+      // API requests: /api/upload -> http://localhost:7273/upload
       "/api": {
-        target: "http://localhost:8080",
+        target: "http://localhost:7273",
         changeOrigin: true,
         rewrite: (p) => p.replace(/^\/api/, ""),
+      },
+      // Generated media (slide images, rendered video) served by the
+      // backend's StaticFiles mount. Kept un-rewritten so /storage/... maps
+      // 1:1 to the backend.
+      "/storage": {
+        target: "http://localhost:7273",
+        changeOrigin: true,
       },
     },
   },

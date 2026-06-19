@@ -14,14 +14,7 @@ import {
   useStatus,
   useUpload,
 } from "@/hooks";
-import type { JobId, JobStatus } from "@/types";
-
-/** Statuses at which slide previews are expected to be available. */
-const SLIDES_READY_STATUSES: JobStatus[] = [
-  "generating_audio",
-  "rendering_video",
-  "completed",
-];
+import type { JobId } from "@/types";
 
 export function DashboardPage() {
   const [jobId, setJobId] = useState<JobId | null>(null);
@@ -33,10 +26,11 @@ export function DashboardPage() {
   const generate = useGenerateVideo(jobId);
 
   const status = statusQuery.data?.status;
-  const slidesReady = status ? SLIDES_READY_STATUSES.includes(status) : false;
   const isCompleted = status === "completed";
 
-  const slidesQuery = useSlides(jobId, slidesReady);
+  // The backend generates slides on demand at GET /slides, so we can fetch
+  // them as soon as a job exists — no need to wait for video generation.
+  const slidesQuery = useSlides(jobId, Boolean(jobId));
   const resultQuery = useResult(jobId, isCompleted);
 
   // Read the markdown locally and upload it to the backend.
@@ -62,13 +56,10 @@ export function DashboardPage() {
     generate.mutate();
   }, [generate]);
 
-  // Slides are "loading" both while the query runs and while the backend is
-  // still generating them.
-  const slidesLoading =
-    status === "generating_slides" ||
-    (slidesReady && slidesQuery.isLoading);
+  // Slides are "loading" while the on-demand generation request is in flight.
+  const slidesLoading = Boolean(jobId) && slidesQuery.isLoading;
 
-  const slidesIdle = !jobId || status === "uploaded" || status === "failed";
+  const slidesIdle = !jobId;
 
   const isGenerating = generate.isPending;
 

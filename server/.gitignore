@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Generated media (keep the directory structure, ignore contents)
+storage/uploads/*
+storage/slides/*
+storage/audio/*
+storage/videos/*
+!storage/uploads/.gitkeep
+!storage/slides/.gitkeep
+!storage/audio/.gitkeep
+!storage/videos/.gitkeep
+
+# Env / editor
+.env
+.idea/
+.vscode/

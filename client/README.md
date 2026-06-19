@@ -74,9 +74,9 @@ The API base URL is read from `VITE_API_BASE_URL` (see `.env`):
 VITE_API_BASE_URL=/api
 ```
 
-By default it is `/api`, which the Vite dev server **proxies** to the Go
-backend at `http://localhost:8080` (configured in `vite.config.ts`). To call a
-backend directly instead, set e.g. `VITE_API_BASE_URL=http://localhost:8080`
+By default it is `/api`, which the Vite dev server **proxies** to the
+backend at `http://localhost:7273` (configured in `vite.config.ts`). To call a
+backend directly instead, set e.g. `VITE_API_BASE_URL=http://localhost:7273`
 and enable CORS on the backend.
 
 ## Running Locally
@@ -97,7 +97,7 @@ cp .env.example .env
 npm run dev
 ```
 
-Make sure the Go backend is running on `http://localhost:8080` (or update the
+Make sure the backend is running on `http://localhost:7273` (or update the
 proxy target in `vite.config.ts` / `VITE_API_BASE_URL`).
 
 ## Available Scripts
