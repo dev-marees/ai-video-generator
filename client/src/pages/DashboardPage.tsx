@@ -4,6 +4,7 @@ import {
   FileUpload,
   GenerateVideoPanel,
   MarkdownPreview,
+  PipelineRail,
   SlidePreviewPanel,
   VideoResult,
 } from "@/components";
@@ -76,16 +77,26 @@ export function DashboardPage() {
     <div className="min-h-screen bg-background">
       <DashboardHeader />
 
-      <main className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="mb-8">
-          <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
-            Convert Markdown to Video
-          </h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            Upload a markdown document, preview the generated slides, and
-            render a narrated video.
+      <main className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+        {/* Hero: the thesis is the transformation pipeline itself. */}
+        <section className="mb-10 animate-fade-up">
+          <p className="font-mono text-xs uppercase tracking-[0.28em] text-primary/80">
+            Markdown in · narrated video out
           </p>
-        </div>
+          <h1 className="mt-3 max-w-2xl font-display text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
+            Turn a document into a{" "}
+            <span className="text-gradient">narrated video</span>.
+          </h1>
+          <p className="mt-4 max-w-xl text-base text-muted-foreground">
+            Drop in a Markdown file. We split it into slides, narrate each one,
+            and render the whole thing to MP4 — watch it move through the
+            pipeline below.
+          </p>
+
+          <div className="surface-glass mt-8 rounded-2xl px-5 py-6 sm:px-8">
+            <PipelineRail status={status} />
+          </div>
+        </section>
 
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
           {/* Left column: upload + generation controls */}

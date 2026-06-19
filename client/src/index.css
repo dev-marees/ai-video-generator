@@ -3,49 +3,54 @@
 @tailwind utilities;
 
 @layer base {
+  /* "Luminous studio": deep indigo-ink ground, electric violet accent,
+     cyan as the spectrum partner. Light theme kept as a calm fallback. */
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 240 33% 98%;
+    --foreground: 240 28% 10%;
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 240 28% 10%;
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
-    --radius: 0.65rem;
+    --popover-foreground: 240 28% 10%;
+    --primary: 252 100% 67%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 24% 95%;
+    --secondary-foreground: 240 28% 14%;
+    --muted: 240 24% 95%;
+    --muted-foreground: 240 10% 42%;
+    --accent: 240 24% 95%;
+    --accent-foreground: 240 28% 14%;
+    --destructive: 0 78% 56%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 240 24% 89%;
+    --input: 240 24% 89%;
+    --ring: 252 100% 67%;
+    --accent-2: 187 86% 53%;
+    --radius: 0.85rem;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 48%;
+    --background: 240 28% 6%;
+    --foreground: 240 30% 97%;
+    --card: 240 24% 9%;
+    --card-foreground: 240 30% 97%;
+    --popover: 240 26% 8%;
+    --popover-foreground: 240 30% 97%;
+    --primary: 252 100% 68%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 18% 16%;
+    --secondary-foreground: 240 24% 92%;
+    --muted: 240 18% 14%;
+    --muted-foreground: 240 14% 64%;
+    --accent: 240 18% 17%;
+    --accent-foreground: 240 24% 95%;
+    --destructive: 0 72% 56%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 240 20% 18%;
+    --input: 240 20% 20%;
+    --ring: 252 100% 68%;
+    --accent-2: 187 86% 53%;
+    --radius: 0.85rem;
   }
 }
 
@@ -53,23 +58,121 @@
   * {
     @apply border-border;
   }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
-    @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    @apply bg-background text-foreground antialiased;
+    font-family: "Inter", system-ui, -apple-system, sans-serif;
+    font-feature-settings: "cv02" 1, "cv03" 1, "cv04" 1, "ss01" 1;
+  }
+
+  /* Atmospheric aurora wash anchored to the top of the page. Sits behind all
+     content as the single allowed dense moment. */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(
+        60rem 40rem at 78% -8%,
+        hsl(252 100% 68% / 0.18),
+        transparent 60%
+      ),
+      radial-gradient(
+        48rem 34rem at 6% 0%,
+        hsl(187 86% 53% / 0.12),
+        transparent 55%
+      );
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: "Space Grotesk", "Inter", sans-serif;
+  }
+
+  /* Custom scrollbars to match the dark studio surfaces. */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(240 16% 28%) transparent;
+  }
+  *::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  *::-webkit-scrollbar-thumb {
+    background-color: hsl(240 16% 28%);
+    border: 3px solid transparent;
+    background-clip: content-box;
+    border-radius: 9999px;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background-color: hsl(252 60% 52%);
+    background-clip: content-box;
   }
 }
 
-/* Prose styles for the rendered markdown preview. shadcn does not ship a
-   typography plugin by default, so we define a focused set here. */
+@layer components {
+  .font-display {
+    font-family: "Space Grotesk", "Inter", sans-serif;
+  }
+  .font-mono {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+  }
+
+  /* The signature spectrum gradient — used sparingly. */
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(
+      100deg,
+      hsl(252 100% 78%),
+      hsl(268 100% 74%) 35%,
+      hsl(187 86% 60%)
+    );
+  }
+  .bg-gradient-accent {
+    background-image: linear-gradient(
+      100deg,
+      hsl(252 100% 66%),
+      hsl(268 92% 62%) 45%,
+      hsl(199 90% 56%)
+    );
+  }
+
+  /* Glass surface for elevated panels. */
+  .surface-glass {
+    background-color: hsl(var(--card) / 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid hsl(var(--border) / 0.8);
+    box-shadow:
+      inset 0 1px 0 0 hsl(0 0% 100% / 0.04),
+      0 24px 60px -28px hsl(252 80% 8% / 0.7);
+  }
+
+  .glow-accent {
+    box-shadow:
+      0 0 0 1px hsl(252 100% 68% / 0.35),
+      0 12px 40px -12px hsl(252 100% 60% / 0.55);
+  }
+}
+
+/* Rendered-markdown typography for the document preview. */
 @layer components {
   .markdown-body {
-    @apply text-sm leading-relaxed text-foreground;
+    @apply text-sm leading-relaxed text-foreground/90;
   }
   .markdown-body h1 {
-    @apply mb-4 mt-6 border-b border-border pb-2 text-2xl font-bold tracking-tight first:mt-0;
+    @apply mb-4 mt-6 border-b border-border/70 pb-2 text-2xl font-bold tracking-tight first:mt-0;
   }
   .markdown-body h2 {
-    @apply mb-3 mt-6 border-b border-border pb-1.5 text-xl font-semibold tracking-tight first:mt-0;
+    @apply mb-3 mt-6 border-b border-border/70 pb-1.5 text-xl font-semibold tracking-tight first:mt-0;
   }
   .markdown-body h3 {
     @apply mb-2 mt-5 text-lg font-semibold first:mt-0;
@@ -81,25 +184,25 @@
     @apply mb-4 leading-7;
   }
   .markdown-body ul {
-    @apply mb-4 ml-6 list-disc space-y-1;
+    @apply mb-4 ml-6 list-disc space-y-1 marker:text-primary/70;
   }
   .markdown-body ol {
-    @apply mb-4 ml-6 list-decimal space-y-1;
+    @apply mb-4 ml-6 list-decimal space-y-1 marker:text-primary/70;
   }
   .markdown-body li {
     @apply leading-7;
   }
   .markdown-body a {
-    @apply font-medium text-primary underline underline-offset-4;
+    @apply font-medium text-primary underline underline-offset-4 hover:text-primary/80;
   }
   .markdown-body blockquote {
-    @apply mb-4 border-l-2 border-border pl-4 italic text-muted-foreground;
+    @apply mb-4 border-l-2 border-primary/50 pl-4 italic text-muted-foreground;
   }
   .markdown-body code {
     @apply rounded bg-muted px-1.5 py-0.5 font-mono text-[0.8125rem] text-foreground;
   }
   .markdown-body pre {
-    @apply mb-4 overflow-x-auto rounded-lg border border-border bg-muted/50 p-4;
+    @apply mb-4 overflow-x-auto rounded-xl border border-border/70 bg-muted/40 p-4;
   }
   .markdown-body pre code {
     @apply bg-transparent p-0 text-[0.8125rem] leading-6;
@@ -109,15 +212,26 @@
   }
   .markdown-body th,
   .markdown-body td {
-    @apply border border-border px-3 py-2 text-left;
+    @apply border border-border/70 px-3 py-2 text-left;
   }
   .markdown-body th {
     @apply bg-muted/50 font-semibold;
   }
   .markdown-body img {
-    @apply max-w-full rounded-lg;
+    @apply max-w-full rounded-xl;
   }
   .markdown-body hr {
-    @apply my-6 border-border;
+    @apply my-6 border-border/70;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
   }
 }

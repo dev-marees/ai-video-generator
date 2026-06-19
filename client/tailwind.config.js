@@ -11,7 +11,13 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ['"Inter"', "system-ui", "sans-serif"],
+        display: ['"Space Grotesk"', '"Inter"', "sans-serif"],
+        mono: ['"JetBrains Mono"', "ui-monospace", "monospace"],
+      },
       colors: {
+        "accent-2": "hsl(var(--accent-2))",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -60,10 +66,28 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        shimmer: {
+          "0%": { transform: "translateX(-100%)" },
+          "100%": { transform: "translateX(100%)" },
+        },
+        "fade-up": {
+          from: { opacity: "0", transform: "translateY(8px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
+        "pulse-glow": {
+          "0%, 100%": { opacity: "0.85" },
+          "50%": { opacity: "0.35" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        shimmer: "shimmer 1.8s ease-in-out infinite",
+        "fade-up": "fade-up 0.5s ease-out both",
+        "pulse-glow": "pulse-glow 2.4s ease-in-out infinite",
+      },
+      boxShadow: {
+        glow: "0 0 0 1px hsl(252 100% 68% / 0.35), 0 12px 40px -12px hsl(252 100% 60% / 0.55)",
       },
     },
   },

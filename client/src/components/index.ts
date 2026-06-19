@@ -1,6 +1,7 @@
 export { DashboardHeader } from "./DashboardHeader";
 export { FileUpload } from "./FileUpload";
 export { MarkdownPreview } from "./MarkdownPreview";
+export { PipelineRail } from "./PipelineRail";
 export { SlidePreviewPanel } from "./SlidePreviewPanel";
 export { SlideCard } from "./SlideCard";
 export { GenerateVideoPanel } from "./GenerateVideoPanel";

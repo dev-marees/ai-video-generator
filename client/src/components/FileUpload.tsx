@@ -100,10 +100,10 @@ export function FileUpload({
         <div
           {...getRootProps()}
           className={cn(
-            "flex flex-col items-center justify-center rounded-lg border-2 border-dashed px-6 py-10 text-center transition-colors",
+            "flex flex-col items-center justify-center rounded-xl border-2 border-dashed px-6 py-10 text-center transition-all duration-200",
             isDragActive
-              ? "border-primary bg-primary/5"
-              : "border-border hover:border-primary/50",
+              ? "border-primary bg-primary/10 shadow-glow"
+              : "border-border hover:border-primary/50 hover:bg-accent/30",
             isUploading && "pointer-events-none opacity-60",
           )}
         >

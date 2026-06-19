@@ -77,7 +77,7 @@ export function VideoResult({
             </div>
           </div>
         ) : result ? (
-          <div className="overflow-hidden rounded-lg border bg-black">
+          <div className="overflow-hidden rounded-xl border border-primary/30 bg-black shadow-glow">
             <video
               src={result.video_url}
               controls

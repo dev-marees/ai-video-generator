@@ -1,24 +1,24 @@
-import { FileVideo } from "lucide-react";
+import { Sparkles } from "lucide-react";
 
 /** Top navigation bar for the dashboard. */
 export function DashboardHeader() {
   return (
-    <header className="sticky top-0 z-20 border-b bg-background/80 backdrop-blur">
+    <header className="sticky top-0 z-30 border-b border-border/60 bg-background/70 backdrop-blur-xl">
       <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-3">
-          <div className="flex size-9 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-            <FileVideo className="size-5" />
+          <div className="bg-gradient-accent flex size-9 items-center justify-center rounded-xl text-white shadow-glow">
+            <Sparkles className="size-5" />
           </div>
-          <div>
-            <p className="text-sm font-semibold leading-tight">
+          <div className="leading-tight">
+            <p className="font-display text-sm font-semibold tracking-tight">
               Universal File Converter
             </p>
-            <p className="text-xs text-muted-foreground">
-              Markdown → Narrated Video
+            <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+              md → video studio
             </p>
           </div>
         </div>
-        <span className="rounded-full border px-3 py-1 text-xs font-medium text-muted-foreground">
+        <span className="rounded-full border border-border/70 bg-card/40 px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
           POC
         </span>
       </div>
