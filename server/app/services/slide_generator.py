@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+# pyrefly: ignore [missing-import]
 from PIL import Image, ImageDraw, ImageFont
 
 from app.config import settings
@@ -15,12 +16,15 @@ logger = get_logger(__name__)
 
 # Candidate font files, tried in order. Falls back to Pillow's default.
 _TITLE_FONT_CANDIDATES = (
+    "/System/Library/Fonts/Supplemental/Tamil MN.ttc",
     "C:/Windows/Fonts/segoeuib.ttf",
     "C:/Windows/Fonts/arialbd.ttf",
     "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
     "/System/Library/Fonts/Supplemental/Arial Bold.ttf",
 )
 _TEXT_FONT_CANDIDATES = (
+    "/System/Library/Fonts/Supplemental/Tamil Sangam MN.ttc",
+    "/System/Library/Fonts/Supplemental/Tamil MN.ttc",
     "C:/Windows/Fonts/segoeui.ttf",
     "C:/Windows/Fonts/arial.ttf",
     "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",

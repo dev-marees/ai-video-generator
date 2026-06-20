@@ -9,6 +9,7 @@ from __future__ import annotations
 from functools import lru_cache
 from pathlib import Path
 
+# pyrefly: ignore [missing-import]
 from pydantic import BaseModel
 
 
@@ -25,7 +26,7 @@ class Settings(BaseModel):
 
     # --- Server ---------------------------------------------------------------
     host: str = "0.0.0.0"
-    port: int = 8080
+    port: int = 7273
     # CORS origins allowed to call the API directly (when not using the
     # frontend dev proxy). The Vite dev server runs on 5173.
     cors_origins: tuple[str, ...] = (
@@ -52,7 +53,7 @@ class Settings(BaseModel):
     slide_margin: int = 96
 
     # --- Audio (gTTS) ---------------------------------------------------------
-    tts_lang: str = "en"
+    tts_lang: str = "ta"
     tts_slow: bool = False
 
     # --- Video (ffmpeg) -------------------------------------------------------
