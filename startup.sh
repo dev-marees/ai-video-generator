@@ -23,12 +23,27 @@ trap cleanup EXIT INT TERM
 echo "Setting up and starting Backend..."
 cd server
 if [ ! -d ".venv" ]; then
+    echo "=== Python Debugging ==="
+    echo "PATH: $PATH"
+    echo "which python3: $(which python3 2>/dev/null || echo 'Not found')"
+    echo "which python: $(which python 2>/dev/null || echo 'Not found')"
+    echo "which py: $(which py 2>/dev/null || echo 'Not found')"
+    echo "========================"
+    
     echo "Creating Python virtual environment..."
-    # Check if python3 is available, otherwise fallback to python (common on Windows)
+    # Check if python3 is available, otherwise fallback to python, then py (Windows)
     if command -v python3 >/dev/null 2>&1; then
+        echo "Using python3"
         python3 -m venv .venv
-    else
+    elif command -v python >/dev/null 2>&1; then
+        echo "Using python"
         python -m venv .venv
+    elif command -v py >/dev/null 2>&1; then
+        echo "Using py"
+        py -m venv .venv
+    else
+        echo "ERROR: Could not find python3, python, or py in PATH."
+        exit 1
     fi
 fi
 
