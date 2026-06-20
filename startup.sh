@@ -24,9 +24,22 @@ echo "Setting up and starting Backend..."
 cd server
 if [ ! -d ".venv" ]; then
     echo "Creating Python virtual environment..."
-    python3 -m venv .venv
+    # Check if python3 is available, otherwise fallback to python (common on Windows)
+    if command -v python3 >/dev/null 2>&1; then
+        python3 -m venv .venv
+    else
+        python -m venv .venv
+    fi
 fi
-source .venv/bin/activate
+
+# Activate the virtual environment depending on the OS path
+if [ -f ".venv/Scripts/activate" ]; then
+    # Windows
+    source .venv/Scripts/activate
+else
+    # macOS/Linux
+    source .venv/bin/activate
+fi
 pip install -r requirements.txt
 uvicorn app.main:app --reload --port 8080 &
 BACKEND_PID=$!
