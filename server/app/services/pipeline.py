@@ -24,11 +24,7 @@ logger = get_logger(__name__)
 
 
 def load_sections(job_id: str) -> list[Section]:
-    """Read the uploaded markdown for a job and parse it into sections.
-
-    Raises:
-        FileNotFoundError: If the uploaded markdown cannot be located.
-    """
+    """Read the uploaded markdown for a job and parse it into sections."""
     md_path = job_manager.markdown_path(job_id)
     if md_path is None:
         raise FileNotFoundError(f"No markdown file found for job {job_id}")
@@ -37,11 +33,7 @@ def load_sections(job_id: str) -> list[Section]:
 
 
 def ensure_slides(job_id: str) -> tuple[list[Section], list[Path]]:
-    """Generate slide images for a job if they are not already present.
-
-    Returns:
-        A tuple of (sections, slide_image_paths).
-    """
+    """Generate slide images for a job if they are not already present."""
     sections = load_sections(job_id)
     if slide_generator.slides_exist(job_id, len(sections)):
         job_dir = settings.slides_dir / job_id
@@ -53,12 +45,8 @@ def ensure_slides(job_id: str) -> tuple[list[Section], list[Path]]:
     return sections, paths
 
 
-def run_generation(job_id: str) -> None:
-    """Run the full generation pipeline for a job, updating status as it goes.
-
-    This function never raises: any failure is captured and recorded on the
-    job as ``FAILED`` so the status endpoint can report it.
-    """
+async def run_generation(job_id: str) -> None:
+    """Run the full generation pipeline for a job, updating status as it goes."""
     logger.info("Starting generation pipeline for job %s", job_id)
     try:
         # 1. Slides
@@ -67,7 +55,7 @@ def run_generation(job_id: str) -> None:
 
         # 2. Audio
         job_manager.update(job_id, status=JobStatus.GENERATING_AUDIO)
-        audio_files = audio_generator.generate_audio(job_id, sections)
+        audio_files = await audio_generator.generate_audio(job_id, sections)
 
         # 3. Video
         job_manager.update(job_id, status=JobStatus.RENDERING_VIDEO)
@@ -79,7 +67,7 @@ def run_generation(job_id: str) -> None:
             job_id, status=JobStatus.COMPLETED, video_url=video_url
         )
         logger.info("Generation pipeline completed for job %s", job_id)
-    except Exception as exc:  # noqa: BLE001 - we want to capture everything
+    except Exception as exc:
         logger.exception("Generation pipeline failed for job %s", job_id)
         job_manager.update(
             job_id, status=JobStatus.FAILED, error=str(exc)

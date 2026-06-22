@@ -6,5 +6,5 @@ pydantic==2.10.5
 Pillow==11.1.0
 markdown==3.7
 beautifulsoup4==4.12.3
-gTTS==2.5.4
+edge-tts==7.2.8
 ffmpeg-python==0.2.0

@@ -57,4 +57,11 @@ export const converterApi = {
     const { data } = await apiClient.get<ResultResponse>(`/result/${jobId}`);
     return data;
   },
+
+  /** Helper to get the audio preview URL for a slide. */
+  getAudioUrl(jobId: JobId, index: number): string {
+    // The apiClient baseURL is ideally handled, but since it's used in <audio src={...}>
+    // we return a standard relative path if not using absolute URLs.
+    return `/api/audio/${jobId}/${index}`;
+  },
 };

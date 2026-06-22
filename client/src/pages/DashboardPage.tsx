@@ -138,6 +138,7 @@ export function DashboardPage() {
                 errorMessage={slidesQuery.error?.message}
                 onRetry={() => void slidesQuery.refetch()}
                 isIdle={slidesIdle}
+                jobId={jobId}
               />
             </div>
 

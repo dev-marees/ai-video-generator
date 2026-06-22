@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 from fastapi import APIRouter, BackgroundTasks, File, HTTPException, UploadFile, status
+from fastapi.responses import FileResponse
+from pathlib import Path
 
 from app.config import settings
 from app.models.job import JobRecord, JobStatus
@@ -177,4 +179,26 @@ async def get_result(job_id: str) -> VideoResultResponse:
         job_id=record.job_id,
         video_url=record.video_url,
         download_url=record.video_url,
+    )
+
+
+@router.get(
+    "/audio/{job_id}/{slide_index}",
+    summary="Get the narration audio for a specific slide.",
+)
+async def get_slide_audio(job_id: str, slide_index: int) -> FileResponse:
+    """Serve a single slide's MP3 file."""
+    _require_job(job_id)
+    audio_path = settings.audio_dir / job_id / f"slide_{slide_index}.mp3"
+    
+    if not audio_path.exists():
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Audio for slide {slide_index} not found. Has generation started?",
+        )
+    
+    return FileResponse(
+        path=audio_path,
+        media_type="audio/mpeg",
+        filename=f"slide_{slide_index}.mp3",
     )
