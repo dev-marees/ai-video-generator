@@ -52,9 +52,9 @@ class Settings(BaseModel):
     slide_text_size: int = 34
     slide_margin: int = 96
 
-    # --- Audio (gTTS) ---------------------------------------------------------
-    tts_lang: str = "ta"
-    tts_slow: bool = False
+    # --- Audio (Edge TTS) -----------------------------------------------------
+    tts_lang: str = "ta-IN"
+    tts_voice: str = "ta-IN-PallaviNeural"
 
     # --- Video (ffmpeg) -------------------------------------------------------
     video_fps: int = 24
@@ -71,6 +71,10 @@ class Settings(BaseModel):
     @property
     def storage_dir(self) -> Path:
         return self.base_dir / "storage"
+
+    @property
+    def fonts_dir(self) -> Path:
+        return self.app_dir / "assets" / "fonts"
 
     @property
     def upload_dir(self) -> Path:

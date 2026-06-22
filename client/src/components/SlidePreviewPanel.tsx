@@ -21,6 +21,7 @@ interface SlidePreviewPanelProps {
   onRetry?: () => void;
   /** True before slides are expected to be available. */
   isIdle: boolean;
+  jobId: string | null;
 }
 
 function SlidesSkeleton() {
@@ -43,6 +44,7 @@ export function SlidePreviewPanel({
   errorMessage,
   onRetry,
   isIdle,
+  jobId,
 }: SlidePreviewPanelProps) {
   const slideCount = slides?.length ?? 0;
 
@@ -87,7 +89,7 @@ export function SlidePreviewPanel({
           <div className="max-h-[32rem] overflow-y-auto pr-2">
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               {slides?.map((slide) => (
-                <SlideCard key={slide.id} slide={slide} />
+                <SlideCard key={slide.id} slide={slide} jobId={jobId} />
               ))}
             </div>
           </div>

@@ -17,6 +17,14 @@ class Section(BaseModel):
 
     @property
     def narration_text(self) -> str:
-        """Text used for narration; falls back to the title if empty."""
-        spoken = ". ".join(part for part in (self.title, self.content) if part)
+        """Text used for narration; enhanced for a teaching style."""
+        # Simple detection for Tamil characters
+        is_tamil = any('\u0b80' <= char <= '\u0bff' for char in self.title + self.content)
+        
+        if is_tamil:
+            intro = f"இந்த ஸ்லைடில் நாம் {self.title} பற்றிப் பார்ப்போம். "
+        else:
+            intro = f"On this slide, let's look at {self.title}. "
+
+        spoken = f"{intro} {self.content}"
         return spoken.strip() or self.title or "Slide"
